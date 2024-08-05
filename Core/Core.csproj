@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <Folder Include="DTOs\Products\" />
-    <Folder Include="DTOs\Paging\" />
     <Folder Include="Extensions\" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
-﻿using Core.DTOs.Products;
+﻿using Core.DTOs.Paging;
+using Core.DTOs.Products;
 using Data.Entities.Product;
 using System;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace Core.Services.Interfaces
 
         Task AddProduct(Product product);
         Task UpdateProduct(Product product);
-        Task<FilterProdcutsDTO> FilterProducts(FilterProdcutsDTO filter);
+        Task<IEnumerable<Product>> GetAllAsync(BasePaging request);
 
         #endregion
     }

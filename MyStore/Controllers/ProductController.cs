@@ -1,4 +1,5 @@
-﻿using Core.DTOs.Products;
+﻿using Core.DTOs.Paging;
+using Core.DTOs.Products;
 using Core.Services.Implementations;
 using Core.Services.Interfaces;
 using Core.Utilities.Common;
@@ -18,9 +19,10 @@ namespace MyStore.Controllers
         #region products
 
         [HttpGet("filter-products")]
-        public async Task<IActionResult> GetProducts([FromQuery] FilterProdcutsDTO filter)
+        public async Task<IActionResult> GetProducts(string? searchterm, string? sortCloumn, string? sortOrder, int page, int pageSize)
         {
-            var products = await _productService.FilterProducts(filter);
+            var request = new BasePaging(page, pageSize,searchterm,sortCloumn, sortOrder);
+            var products = await _productService.GetAllAsync(request);
 
             return JsonResponseStatus.Success(products);
         }

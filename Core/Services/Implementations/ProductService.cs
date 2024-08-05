@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Core.DTOs.Paging;
 using Core.DTOs.Products;
 using Core.Extensions;
@@ -39,26 +40,30 @@ namespace Core.Services.Implementations
             await _productRepository.SaveChanges();
         }
 
-
-        public async Task<FilterProdcutsDTO> FilterProducts(FilterProdcutsDTO filter)
+        public async Task<IEnumerable<Product>> GetAllAsync(BasePaging request)
         {
-            var productsQuery = _productRepository.GetEntitiesQuery().AsQueryable();
-
-            if (!string.IsNullOrEmpty(filter.Title))
-                productsQuery = productsQuery.Where(s => s.ProductName.Contains(filter.Title));
-
-            productsQuery = productsQuery.Where(s => s.Price >= filter.StartPrice && s.Price <= filter.EndPrice);
-
-            var count = (int)Math.Ceiling(productsQuery.Count() / (double)filter.TakeEntity);
-
-            var pager = Pager.Build(count, filter.PageId, filter.TakeEntity);
-
-            var products = await productsQuery.Paging(pager).ToListAsync();
-
-            return filter.SetProducts(products).SetPaging(pager);
-
-
+            var query = _productRepository.GetEntitiesQuery().AsQueryable();
+            if (!string.IsNullOrWhiteSpace(request.SearchTerm))
+            {
+                query = query.Where(s => s.ProductName.Contains(request.SearchTerm));
+            }
+            if(request.SortOrder?.ToLower() == "desc")
+                query = query.OrderByDescending(GetSortProperty(request));
+            else
+                query = query.OrderBy(GetSortProperty(request));
+            var result = await query
+                .Skip((request.Page - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .ToListAsync();
+            return result;
         }
+        private Expression<Func<Product, object>> GetSortProperty(BasePaging request)
+            => request.SortColumn?.ToLower() switch
+            {
+                "name" => Product => Product.ProductName,
+                _ => Product => Product.Id,
+            };
+  
             #endregion
 
 
