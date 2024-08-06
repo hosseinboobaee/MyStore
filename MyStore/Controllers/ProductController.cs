@@ -1,8 +1,8 @@
 ﻿using Core.DTOs.Paging;
-using Core.DTOs.Products;
 using Core.Services.Implementations;
 using Core.Services.Interfaces;
 using Core.Utilities.Common;
+using Data.Entities.Product;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
 
@@ -17,7 +17,12 @@ namespace MyStore.Controllers
         }
 
         #region products
-
+        [HttpGet("GetAllProduct")]
+        public async Task<IActionResult> GetAll()
+        {
+            var result =  await _productService.GetAllProduct();
+            return JsonResponseStatus.Success(result);
+        }
         [HttpGet("filter-products")]
         public async Task<IActionResult> GetProducts(string? searchterm, string? sortCloumn, string? sortOrder, int page, int pageSize)
         {

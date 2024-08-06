@@ -27,7 +27,10 @@ namespace Data.Repository
         {
             return dbSet.AsQueryable();
         }
-
+        public async Task<IReadOnlyList<TEntity>> GetAllasync()
+        {
+            return await dbSet.ToListAsync();
+        }
         public async Task<TEntity> GetEntityById(long entityId)
         {
             return await dbSet.SingleOrDefaultAsync(e => e.Id == entityId);

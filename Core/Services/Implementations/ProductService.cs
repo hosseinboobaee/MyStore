@@ -1,8 +1,6 @@
 ﻿using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Core.DTOs.Paging;
-using Core.DTOs.Products;
-using Core.Extensions;
 using Core.Services.Interfaces;
 using Data.Entities.Product;
 using Data.Repository;
@@ -27,7 +25,11 @@ namespace Core.Services.Implementations
         #endregion
 
         #region product
-
+        public async Task<IEnumerable<Product>> GetAllProduct()
+        {
+            var a = await _productRepository.GetAllasync();
+            return a;
+        }
         public async Task AddProduct(Product product)
         {
             await _productRepository.AddEntity(product);

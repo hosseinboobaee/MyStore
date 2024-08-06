@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AngularEshopDbContext))]
-    [Migration("20240731115011_New")]
-    partial class New
+    [Migration("20240805211901_new")]
+    partial class @new
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,13 +33,13 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime>("CreateDate")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("LastUpdateDate")
+                    b.Property<DateTime?>("LastUpdateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
@@ -65,13 +65,13 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime>("CreateDate")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("LastUpdateDate")
+                    b.Property<DateTime?>("LastUpdateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("RoleId")
@@ -102,7 +102,7 @@ namespace Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<DateTime>("CreateDate")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -131,7 +131,7 @@ namespace Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateTime>("LastUpdateDate")
+                    b.Property<DateTime?>("LastUpdateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Password")
@@ -152,7 +152,7 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime>("CreateDate")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -174,7 +174,7 @@ namespace Data.Migrations
                     b.Property<bool>("IsSpecial")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("LastUpdateDate")
+                    b.Property<DateTime?>("LastUpdateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Price")
@@ -204,13 +204,13 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime>("CreateDate")
+                    b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("LastUpdateDate")
+                    b.Property<DateTime?>("LastUpdateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<long?>("ParentId")

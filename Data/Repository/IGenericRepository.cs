@@ -8,7 +8,7 @@ namespace Data.Repository
     public interface IGenericRepository<TEntity> : IDisposable where TEntity : BaseEntity
     {
         IQueryable<TEntity> GetEntitiesQuery();
-
+        Task<IReadOnlyList<TEntity>> GetAllasync();
         Task<TEntity> GetEntityById(long entityId);
 
         Task AddEntity(TEntity entity);
