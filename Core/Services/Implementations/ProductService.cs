@@ -41,7 +41,10 @@ namespace Core.Services.Implementations
             _productRepository.UpdateEntity(product);
             await _productRepository.SaveChanges();
         }
-
+        public async Task<Product> GetProductById(int id)
+        {
+            return await _productRepository.GetEntityById(id);
+        }
         public async Task<IEnumerable<Product>> GetAllAsync(BasePaging request)
         {
             var query = _productRepository.GetEntitiesQuery().AsQueryable();
@@ -49,7 +52,7 @@ namespace Core.Services.Implementations
             {
                 query = query.Where(s => s.ProductName.Contains(request.SearchTerm));
             }
-            if(request.SortOrder?.ToLower() == "desc")
+            if (request.SortOrder?.ToLower() == "desc")
                 query = query.OrderByDescending(GetSortProperty(request));
             else
                 query = query.OrderBy(GetSortProperty(request));
@@ -65,13 +68,13 @@ namespace Core.Services.Implementations
                 "name" => Product => Product.ProductName,
                 _ => Product => Product.Id,
             };
-  
-            #endregion
+
+        #endregion
 
 
-            #region dispose
+        #region dispose
 
-            public void Dispose()
+        public void Dispose()
         {
             _productRepository?.Dispose();
             _productCategoryRepository?.Dispose();

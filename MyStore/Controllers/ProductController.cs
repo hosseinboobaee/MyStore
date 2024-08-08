@@ -32,6 +32,12 @@ namespace MyStore.Controllers
             return JsonResponseStatus.Success(products);
         }
 
+        [HttpPost("GetPtoductById/{id}")]
+        public async Task<IActionResult> GetPtoductById(int id)
+        {
+            var product = await _productService.GetProductById(id);
+            return JsonResponseStatus.Success(product);
+        }
         #endregion
     }
 }
